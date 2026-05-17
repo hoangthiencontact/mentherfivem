@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberSec Profile | [Tên của bạn]</title>
+  <meta name="description" content="Cybersecurity Specialist Portfolio - Ethical Hacker, SOC Analyst Enthusiast" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- AOS Animation -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       CANVAS: Particle Background
+  ============================================================ -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <span class="logo-bracket">[</span>CyberSec<span class="logo-accent">_</span>Profile<span class="logo-bracket">]</span>
+      </a>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#achievements" class="nav-link">Achievements</a></li>
+        <li><a href="#certificates" class="nav-link">Certificates</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO SECTION
+  ============================================================ -->
+  <section id="home" class="hero">
+    <div class="hero-scanlines"></div>
+    <div class="hero-content">
+      <div class="hero-terminal-bar">
+        <span class="terminal-dot dot-red"></span>
+        <span class="terminal-dot dot-yellow"></span>
+        <span class="terminal-dot dot-green"></span>
+        <span class="terminal-title">root@cybersec:~</span>
+      </div>
+
+      <p class="hero-prompt"><span class="prompt-symbol">$</span> whoami</p>
+      <h1 class="hero-name">
+        Hi, I'm <span class="name-highlight" id="typed-name">[Tên của bạn]</span>
+      </h1>
+
+      <div class="hero-subtitle">
+        <span class="prompt-symbol">></span>
+        <span id="typing-text"></span><span class="cursor-blink">|</span>
+      </div>
+
+      <p class="hero-description">
+        Sinh viên đam mê an ninh mạng, đang xây dựng nền tảng vững chắc trong lĩnh vực
+        Ethical Hacking, Digital Forensics và Security Operations. Luôn tìm kiếm thử thách
+        mới để nâng cao kỹ năng và đóng góp cho cộng đồng bảo mật.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#projects" class="btn btn-primary">
+          <i class="fas fa-terminal"></i> View My Work
+        </a>
+        <a href="#contact" class="btn btn-secondary">
+          <i class="fas fa-envelope"></i> Contact Me
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">6+</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-divider">|</div>
+        <div class="stat-item">
+          <span class="stat-num">10+</span>
+          <span class="stat-label">CTF Challenges</span>
+        </div>
+        <div class="stat-divider">|</div>
+        <div class="stat-item">
+          <span class="stat-num">6</span>
+          <span class="stat-label">Certificates</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hex-grid">
+        <div class="hex-item"><i class="fas fa-shield-halved"></i></div>
+        <div class="hex-item"><i class="fas fa-bug"></i></div>
+        <div class="hex-item"><i class="fas fa-network-wired"></i></div>
+        <div class="hex-item"><i class="fas fa-lock"></i></div>
+        <div class="hex-item"><i class="fas fa-code"></i></div>
+        <div class="hex-item"><i class="fas fa-eye"></i></div>
+        <div class="hex-item"><i class="fas fa-database"></i></div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll Down</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT SECTION
+  ============================================================ -->
+  <section id="about" class="about section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">// 01</span>
+        <h2 class="section-title">About Me</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="about-grid">
+        <!-- Avatar -->
+        <div class="about-avatar-col" data-aos="fade-right">
+          <div class="avatar-frame">
+            <div class="avatar-placeholder">
+              <!-- Thay thẻ dưới bằng: <img src="avatar.jpg" alt="Avatar" /> -->
+              <div class="avatar-icon">
+                <i class="fas fa-user-secret"></i>
+              </div>
+              <div class="avatar-glitch-overlay"></div>
+            </div>
+            <div class="avatar-border-glow"></div>
+          </div>
+          <div class="status-badge">
+            <span class="status-dot"></span> Available for opportunities
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="about-info-col" data-aos="fade-left">
+          <p class="about-intro">
+            Tôi là một sinh viên/chuyên viên đang theo đuổi đam mê trong lĩnh vực
+            <span class="text-accent">An ninh mạng</span>. Với nền tảng kỹ thuật vững chắc
+            và tư duy phân tích sắc bén, tôi luôn tìm hiểu các lỗ hổng bảo mật mới,
+            tham gia CTF và học hỏi từ cộng đồng hacker mũ trắng toàn cầu.
+          </p>
+
+          <div class="info-grid">
+            <div class="info-item">
+              <i class="fas fa-user info-icon"></i>
+              <div>
+                <span class="info-label">Name</span>
+                <span class="info-value">[Tên của bạn]</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-map-marker-alt info-icon"></i>
+              <div>
+                <span class="info-label">Location</span>
+                <span class="info-value">Việt Nam</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-envelope info-icon"></i>
+              <div>
+                <span class="info-label">Email</span>
+                <span class="info-value">[email@domain.com]</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-graduation-cap info-icon"></i>
+              <div>
+                <span class="info-label">Education</span>
+                <span class="info-value">[Tên trường / Ngành học]</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-bullseye info-icon"></i>
+              <div>
+                <span class="info-label">Career Goal</span>
+                <span class="info-value">SOC Analyst / Penetration Tester</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-flag info-icon"></i>
+              <div>
+                <span class="info-label">CTF</span>
+                <span class="info-value">Active Competitor</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="interest-tags">
+            <span class="tag">Network Security</span>
+            <span class="tag">Web Security</span>
+            <span class="tag">Digital Forensics</span>
+            <span class="tag">Malware Analysis</span>
+            <span class="tag">SOC Operations</span>
+            <span class="tag">CTF Challenges</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SKILLS SECTION
+  ============================================================ -->
+  <section id="skills" class="skills section section-dark">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">// 02</span>
+        <h2 class="section-title">Skills & Tools</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="skills-categories">
+
+        <!-- Cybersecurity Skills -->
+        <div class="skill-category" data-aos="fade-up" data-aos-delay="100">
+          <div class="category-header">
+            <i class="fas fa-shield-halved"></i>
+            <h3>Cybersecurity</h3>
+          </div>
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Network Security</span><span class="skill-pct">80%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Web Penetration Testing</span><span class="skill-pct">75%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Vulnerability Assessment</span><span class="skill-pct">70%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>OSINT</span><span class="skill-pct">85%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Linux Security</span><span class="skill-pct">78%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Incident Response</span><span class="skill-pct">65%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="65"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
+          <div class="category-header">
+            <i class="fas fa-wrench"></i>
+            <h3>Tools</h3>
+          </div>
+          <div class="tool-badges">
+            <span class="tool-badge"><i class="fab fa-linux"></i> Kali Linux</span>
+            <span class="tool-badge"><i class="fas fa-fish"></i> Wireshark</span>
+            <span class="tool-badge"><i class="fas fa-spider"></i> Burp Suite</span>
+            <span class="tool-badge"><i class="fas fa-map"></i> Nmap</span>
+            <span class="tool-badge"><i class="fas fa-bomb"></i> Metasploit</span>
+            <span class="tool-badge"><i class="fas fa-microscope"></i> Nessus</span>
+            <span class="tool-badge"><i class="fas fa-chart-line"></i> Splunk</span>
+            <span class="tool-badge"><i class="fab fa-github"></i> GitHub</span>
+            <span class="tool-badge"><i class="fas fa-network-wired"></i> Snort</span>
+            <span class="tool-badge"><i class="fas fa-terminal"></i> Hydra</span>
+          </div>
+        </div>
+
+        <!-- Programming -->
+        <div class="skill-category" data-aos="fade-up" data-aos-delay="300">
+          <div class="category-header">
+            <i class="fas fa-code"></i>
+            <h3>Programming</h3>
+          </div>
+          <div class="lang-grid">
+            <div class="lang-card">
+              <i class="fab fa-python"></i>
+              <span>Python</span>
+              <div class="lang-level">
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot"></div>
+              </div>
+            </div>
+            <div class="lang-card">
+              <i class="fas fa-copyright"></i>
+              <span>C/C++</span>
+              <div class="lang-level">
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot"></div>
+                <div class="lang-dot"></div>
+              </div>
+            </div>
+            <div class="lang-card">
+              <i class="fab fa-js"></i>
+              <span>JavaScript</span>
+              <div class="lang-level">
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot"></div>
+                <div class="lang-dot"></div>
+              </div>
+            </div>
+            <div class="lang-card">
+              <i class="fas fa-terminal"></i>
+              <span>Bash</span>
+              <div class="lang-level">
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot"></div>
+              </div>
+            </div>
+            <div class="lang-card">
+              <i class="fas fa-database"></i>
+              <span>SQL</span>
+              <div class="lang-level">
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot"></div>
+                <div class="lang-dot"></div>
+              </div>
+            </div>
+            <div class="lang-card">
+              <i class="fab fa-html5"></i>
+              <span>HTML/CSS</span>
+              <div class="lang-level">
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+                <div class="lang-dot filled"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Soft Skills -->
+        <div class="skill-category" data-aos="fade-up" data-aos-delay="400">
+          <div class="category-header">
+            <i class="fas fa-brain"></i>
+            <h3>Soft Skills</h3>
+          </div>
+          <div class="soft-skills-list">
+            <div class="soft-skill-item">
+              <i class="fas fa-users"></i>
+              <span>Teamwork</span>
+            </div>
+            <div class="soft-skill-item">
+              <i class="fas fa-puzzle-piece"></i>
+              <span>Problem Solving</span>
+            </div>
+            <div class="soft-skill-item">
+              <i class="fas fa-search"></i>
+              <span>Research</span>
+            </div>
+            <div class="soft-skill-item">
+              <i class="fas fa-file-alt"></i>
+              <span>Report Writing</span>
+            </div>
+            <div class="soft-skill-item">
+              <i class="fas fa-chalkboard-teacher"></i>
+              <span>Presentation</span>
+            </div>
+            <div class="soft-skill-item">
+              <i class="fas fa-lightbulb"></i>
+              <span>Critical Thinking</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROJECTS SECTION
+  ============================================================ -->
+  <section id="projects" class="projects section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">// 03</span>
+        <h2 class="section-title">Projects</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="projects-grid">
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="project-card-inner">
+            <div class="project-top">
+              <div class="project-icon"><i class="fas fa-bug"></i></div>
+              <div class="project-links">
+                <a href="[Link GitHub]" target="_blank" class="proj-link" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank" class="proj-link" title="Demo"><i class="fas fa-external-link-alt"></i></a>
+              </div>
+            </div>
+            <h3 class="project-title">Web Vulnerability Scanner</h3>
+            <p class="project-desc">
+              Công cụ quét lỗ hổng web tự động, phát hiện SQLi, XSS, CSRF và các điểm yếu OWASP Top 10.
+              Xuất báo cáo chi tiết dạng HTML/PDF.
+            </p>
+            <div class="project-tech">
+              <span>Python</span><span>Flask</span><span>BeautifulSoup</span><span>SQLMap</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="project-card-inner">
+            <div class="project-top">
+              <div class="project-icon"><i class="fas fa-network-wired"></i></div>
+              <div class="project-links">
+                <a href="[Link GitHub]" target="_blank" class="proj-link"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank" class="proj-link"><i class="fas fa-external-link-alt"></i></a>
+              </div>
+            </div>
+            <h3 class="project-title">Network Monitoring Dashboard</h3>
+            <p class="project-desc">
+              Dashboard theo dõi lưu lượng mạng real-time, phân tích gói tin, cảnh báo bất thường
+              và trực quan hóa dữ liệu network.
+            </p>
+            <div class="project-tech">
+              <span>Python</span><span>Scapy</span><span>Chart.js</span><span>WebSocket</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="project-card-inner">
+            <div class="project-top">
+              <div class="project-icon"><i class="fas fa-flag"></i></div>
+              <div class="project-links">
+                <a href="[Link GitHub]" target="_blank" class="proj-link"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank" class="proj-link"><i class="fas fa-external-link-alt"></i></a>
+              </div>
+            </div>
+            <h3 class="project-title">CTF Writeups Website</h3>
+            <p class="project-desc">
+              Website cá nhân chia sẻ writeup các bài CTF đã giải, hướng dẫn từng bước giải quyết
+              các thử thách về Crypto, Pwn, Web, Forensics.
+            </p>
+            <div class="project-tech">
+              <span>HTML/CSS</span><span>JavaScript</span><span>Markdown</span><span>Jekyll</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="250">
+          <div class="project-card-inner">
+            <div class="project-top">
+              <div class="project-icon"><i class="fas fa-key"></i></div>
+              <div class="project-links">
+                <a href="[Link GitHub]" target="_blank" class="proj-link"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank" class="proj-link"><i class="fas fa-external-link-alt"></i></a>
+              </div>
+            </div>
+            <h3 class="project-title">Password Strength Checker</h3>
+            <p class="project-desc">
+              Công cụ kiểm tra độ mạnh mật khẩu, ước tính thời gian crack, đề xuất cải thiện
+              và kiểm tra database rò rỉ thông qua HaveIBeenPwned API.
+            </p>
+            <div class="project-tech">
+              <span>JavaScript</span><span>Python</span><span>API</span><span>zxcvbn</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="project-card-inner">
+            <div class="project-top">
+              <div class="project-icon"><i class="fas fa-fish"></i></div>
+              <div class="project-links">
+                <a href="[Link GitHub]" target="_blank" class="proj-link"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank" class="proj-link"><i class="fas fa-external-link-alt"></i></a>
+              </div>
+            </div>
+            <h3 class="project-title">Phishing Awareness Landing Page</h3>
+            <p class="project-desc">
+              Trang landing giả lập phishing để đào tạo nhận thức bảo mật cho nhân viên,
+              theo dõi tương tác và cung cấp báo cáo chi tiết.
+            </p>
+            <div class="project-tech">
+              <span>HTML/CSS</span><span>JavaScript</span><span>PHP</span><span>MySQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="350">
+          <div class="project-card-inner">
+            <div class="project-top">
+              <div class="project-icon"><i class="fas fa-scroll"></i></div>
+              <div class="project-links">
+                <a href="[Link GitHub]" target="_blank" class="proj-link"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank" class="proj-link"><i class="fas fa-external-link-alt"></i></a>
+              </div>
+            </div>
+            <h3 class="project-title">Log Analysis Tool</h3>
+            <p class="project-desc">
+              Công cụ phân tích log hệ thống và web server tự động, phát hiện pattern tấn công,
+              brute force và hoạt động đáng ngờ.
+            </p>
+            <div class="project-tech">
+              <span>Python</span><span>Regex</span><span>Pandas</span><span>Matplotlib</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ACHIEVEMENTS SECTION
+  ============================================================ -->
+  <section id="achievements" class="achievements section section-dark">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">// 04</span>
+        <h2 class="section-title">Achievements</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
+          <div class="timeline-icon"><i class="fas fa-trophy"></i></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2024</div>
+            <h3>Top 10 — National CTF Championship</h3>
+            <p>Đạt Top 10 trong cuộc thi CTF cấp quốc gia, giải quyết thành công các thử thách về Web Exploitation, Cryptography và Binary Exploitation.</p>
+            <span class="timeline-badge">CTF Competition</span>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-aos="fade-left" data-aos-delay="150">
+          <div class="timeline-icon"><i class="fas fa-certificate"></i></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2024</div>
+            <h3>Hoàn thành Google Cybersecurity Certificate</h3>
+            <p>Hoàn thành chương trình đào tạo 6 tháng của Google về an ninh mạng, bao gồm Python automation, SIEM tools và incident response.</p>
+            <span class="timeline-badge">Certification</span>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="200">
+          <div class="timeline-icon"><i class="fas fa-users"></i></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2023</div>
+            <h3>Speaker — Security Workshop tại trường</h3>
+            <p>Trình bày chuyên đề "Phishing Attacks & Defense Strategies" tại hội thảo an ninh mạng của trường, thu hút 200+ sinh viên tham dự.</p>
+            <span class="timeline-badge">Workshop</span>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-aos="fade-left" data-aos-delay="250">
+          <div class="timeline-icon"><i class="fas fa-star"></i></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2023</div>
+            <h3>Học bổng Xuất sắc — An ninh mạng</h3>
+            <p>Nhận học bổng xuất sắc năm học 2022-2023 với GPA 3.7/4.0, ghi nhận thành tích học tập và nghiên cứu trong lĩnh vực bảo mật thông tin.</p>
+            <span class="timeline-badge">Scholarship</span>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
+          <div class="timeline-icon"><i class="fas fa-microscope"></i></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2023</div>
+            <h3>Nghiên cứu: Phân tích Malware mã hóa</h3>
+            <p>Hoàn thành dự án nghiên cứu về phân tích ransomware hiện đại, đề xuất phương pháp phát hiện và ngăn chặn dựa trên hành vi (behavior-based detection).</p>
+            <span class="timeline-badge">Research</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CERTIFICATES SECTION
+  ============================================================ -->
+  <section id="certificates" class="certificates section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">// 05</span>
+        <h2 class="section-title">Certificates</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="certs-grid">
+
+        <div class="cert-card" data-aos="zoom-in" data-aos-delay="100">
+          <div class="cert-logo cert-cisco">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <div class="cert-info">
+            <h3>Introduction to Cybersecurity</h3>
+            <span class="cert-org">Cisco Networking Academy</span>
+            <span class="cert-date"><i class="fas fa-calendar-alt"></i> Jan 2024</span>
+          </div>
+          <div class="cert-ribbon">Verified</div>
+        </div>
+
+        <div class="cert-card" data-aos="zoom-in" data-aos-delay="150">
+          <div class="cert-logo cert-google">
+            <i class="fab fa-google"></i>
+          </div>
+          <div class="cert-info">
+            <h3>Cybersecurity Professional Certificate</h3>
+            <span class="cert-org">Google / Coursera</span>
+            <span class="cert-date"><i class="fas fa-calendar-alt"></i> Mar 2024</span>
+          </div>
+          <div class="cert-ribbon">Verified</div>
+        </div>
+
+        <div class="cert-card" data-aos="zoom-in" data-aos-delay="200">
+          <div class="cert-logo cert-thm">
+            <i class="fas fa-skull-crossbones"></i>
+          </div>
+          <div class="cert-info">
+            <h3>SOC Level 1 Learning Path</h3>
+            <span class="cert-org">TryHackMe</span>
+            <span class="cert-date"><i class="fas fa-calendar-alt"></i> May 2024</span>
+          </div>
+          <div class="cert-ribbon">Completed</div>
+        </div>
+
+        <div class="cert-card" data-aos="zoom-in" data-aos-delay="250">
+          <div class="cert-logo cert-htb">
+            <i class="fas fa-box-open"></i>
+          </div>
+          <div class="cert-info">
+            <h3>Penetration Testing Basics</h3>
+            <span class="cert-org">Hack The Box Academy</span>
+            <span class="cert-date"><i class="fas fa-calendar-alt"></i> Jun 2024</span>
+          </div>
+          <div class="cert-ribbon">Completed</div>
+        </div>
+
+        <div class="cert-card" data-aos="zoom-in" data-aos-delay="300">
+          <div class="cert-logo cert-comptia">
+            <i class="fas fa-shield-halved"></i>
+          </div>
+          <div class="cert-info">
+            <h3>Security+ Preparation Course</h3>
+            <span class="cert-org">CompTIA / Professor Messer</span>
+            <span class="cert-date"><i class="fas fa-calendar-alt"></i> Aug 2024</span>
+          </div>
+          <div class="cert-ribbon">In Progress</div>
+        </div>
+
+        <div class="cert-card" data-aos="zoom-in" data-aos-delay="350">
+          <div class="cert-logo cert-ec">
+            <i class="fas fa-user-ninja"></i>
+          </div>
+          <div class="cert-info">
+            <h3>Ethical Hacking Essentials (EHE)</h3>
+            <span class="cert-org">EC-Council</span>
+            <span class="cert-date"><i class="fas fa-calendar-alt"></i> Sep 2024</span>
+          </div>
+          <div class="cert-ribbon">Verified</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT SECTION
+  ============================================================ -->
+  <section id="contact" class="contact section section-dark">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">// 06</span>
+        <h2 class="section-title">Contact</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="contact-grid">
+
+        <!-- Contact Info -->
+        <div class="contact-info" data-aos="fade-right">
+          <p class="contact-intro">
+            Tôi luôn mở cửa cho các cơ hội thực tập, cộng tác dự án hoặc đơn giản là
+            một cuộc trò chuyện về an ninh mạng. Hãy liên hệ!
+          </p>
+
+          <div class="contact-links">
+            <a href="mailto:[email@domain.com]" class="contact-link">
+              <div class="contact-link-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <span class="contact-link-label">Email</span>
+                <span class="contact-link-val">[email@domain.com]</span>
+              </div>
+            </a>
+            <a href="[Link GitHub]" target="_blank" class="contact-link">
+              <div class="contact-link-icon"><i class="fab fa-github"></i></div>
+              <div>
+                <span class="contact-link-label">GitHub</span>
+                <span class="contact-link-val">github.com/[username]</span>
+              </div>
+            </a>
+            <a href="[Link LinkedIn]" target="_blank" class="contact-link">
+              <div class="contact-link-icon"><i class="fab fa-linkedin"></i></div>
+              <div>
+                <span class="contact-link-label">LinkedIn</span>
+                <span class="contact-link-val">linkedin.com/in/[username]</span>
+              </div>
+            </a>
+            <a href="[Link Facebook]" target="_blank" class="contact-link">
+              <div class="contact-link-icon"><i class="fab fa-facebook"></i></div>
+              <div>
+                <span class="contact-link-label">Facebook</span>
+                <span class="contact-link-val">fb.com/[username]</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-wrap" data-aos="fade-left">
+          <div class="form-terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span style="font-size:0.7rem; color:var(--text-dim); margin-left:8px;">send_message.sh</span>
+          </div>
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="name"><span class="form-prompt">$</span> Name</label>
+              <input type="text" id="name" name="name" placeholder="Your full name" autocomplete="off" />
+              <span class="form-error" id="name-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="email"><span class="form-prompt">$</span> Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="off" />
+              <span class="form-error" id="email-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="message"><span class="form-prompt">$</span> Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Type your message here..."></textarea>
+              <span class="form-error" id="message-error"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+          <div class="form-success" id="form-success">
+            <i class="fas fa-check-circle"></i>
+            <p>Message sent successfully! I'll reply soon.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-bracket">[</span>CyberSec<span class="logo-accent">_</span>Profile<span class="logo-bracket">]</span>
+      </div>
+      <p class="footer-copy">
+        &copy; <span id="current-year"></span> [Tên của bạn]. Built with <i class="fas fa-heart" style="color:var(--accent-cyan)"></i> & passion for security.
+      </p>
+      <div class="footer-socials">
+        <a href="[Link GitHub]" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="[Link LinkedIn]" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="[Link Facebook]" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="mailto:[email@domain.com]" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- AOS JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>
