@@ -498,7 +498,7 @@ img { max-width: 100%; display: block; }
 
 .avatar-frame {
   position: relative;
-  width: 260px; height: 260px;
+  width: 260px; height: 360px;
 }
 
 .avatar-placeholder {
