@@ -325,10 +325,10 @@ img { max-width: 100%; display: block; }
 }
 
 .hero-banner {
-    width:200%;
+    width:100%;
     max-width:none;
     height:300px;
-    right:50%;
+    right:00%;
     border-radius:32px;
     overflow:hidden;
     position:relative;
