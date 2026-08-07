@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kho Lưu Trữ Ảnh Chứng Chỉ</title>
+  <style>
+    :root {
+      --bg: #050b12;
+      --surface: #0a1525;
+      --surface-strong: #112136;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #00f5d4;
+      --accent-strong: #0ea5e9;
+      --border: rgba(0, 245, 212, 0.15);
+      --radius: 16px;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: radial-gradient(circle at top, rgba(0,245,212,0.08), transparent 35%), var(--bg); color: var(--text); }
+    body { line-height: 1.6; }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .page { max-width: 1180px; margin: 0 auto; padding: 28px 24px 56px; }
+    .site-header { text-align: center; margin-bottom: 36px; }
+    .site-header h1 { font-size: clamp(2.4rem, 4vw, 3.8rem); letter-spacing: -0.04em; margin-bottom: 12px; }
+    .site-header p { color: var(--muted); font-size: 1rem; max-width: 720px; margin: 0 auto; }
+
+    .top-grid { display: grid; grid-template-columns: minmax(280px, 420px) 1fr; gap: 24px; align-items: start; margin-bottom: 42px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px; }
+    .card h2 { margin-top: 0; margin-bottom: 18px; font-size: 1.3rem; }
+    .card p { color: var(--muted); margin-top: 0; }
+
+    .field { display: grid; gap: 8px; margin-bottom: 18px; }
+    .field label { display: block; font-size: 0.92rem; color: var(--muted); }
+    .field input,
+    .field textarea,
+    .field select { width: 100%; background: #07111f; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 12px 14px; color: var(--text); outline: none; }
+    .field textarea { min-height: 80px; resize: vertical; }
+    .field input[type="file"] { padding: 8px 12px; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 4px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: none; border-radius: 999px; padding: 12px 22px; background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: #04111b; font-weight: 700; transition: transform 0.2s ease, filter 0.2s ease; }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    .btn-secondary { background: transparent; border: 1px solid rgba(0,245,212,0.25); color: var(--accent); }
+    .btn-secondary:hover { background: rgba(0,245,212,0.08); }
+
+    .gallery-card { background: rgba(10,21,37,0.9); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: grid; grid-template-columns: 1fr; }
+    .gallery-metadata { padding: 22px; display: grid; gap: 10px; }
+    .gallery-meta-title { margin: 0; font-size: 1.05rem; }
+    .meta-list { display: flex; flex-wrap: wrap; gap: 10px; color: var(--muted); font-size: 0.88rem; }
+    .meta-pill { background: rgba(255,255,255,0.04); color: var(--text); border-radius: 999px; padding: 6px 12px; }
+
+    .gallery-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .gallery-actions button { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid rgba(255,255,255,0.08); }
+    .gallery-actions button:hover { background: rgba(0,245,212,0.12); }
+
+    .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; padding: 0 22px 22px; }
+    .image-thumb { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px; cursor: pointer; border: 1px solid rgba(255,255,255,0.08); }
+
+    .gallery-section { display: grid; gap: 18px; }
+    .gallery-header { display: flex; justify-content: space-between; gap: 14px; align-items: center; }
+    .gallery-header h2 { margin: 0; }
+    .empty-state { color: var(--muted); background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.1); border-radius: var(--radius); padding: 36px 22px; text-align: center; }
+
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; justify-content: center; align-items: center; padding: 24px; z-index: 50; }
+    .modal-backdrop.visible { display: flex; }
+    .modal-card { position: relative; max-width: 920px; width: 100%; background: #07111f; border: 1px solid rgba(0,255,255,0.12); border-radius: 22px; overflow: hidden; box-shadow: var(--shadow); }
+    .modal-card img { width: 100%; height: auto; display: block; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: rgba(255,255,255,0.04); }
+    .modal-header h3 { margin: 0; font-size: 1rem; color: var(--text); }
+    .modal-close { border: none; background: transparent; color: var(--text); font-size: 1.2rem; cursor: pointer; }
+
+    .status-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); font-size: 0.95rem; margin-bottom: 10px; }
+
+    @media (max-width: 900px) {
+      .top-grid { grid-template-columns: 1fr; }
+      .gallery-header { flex-direction: column; align-items: stretch; }
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 20px 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <span style="font-family: var(--font-mono); color: var(--accent); text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.78rem;">Certificate Archive</span>
+      <h1>Trang lưu trữ ảnh chứng chỉ</h1>
+      <p>Upload và quản lý hình ảnh chứng chỉ các môn học đã hoàn thành. Dữ liệu sẽ được lưu trong trình duyệt của bạn.</p>
+    </header>
+
+    <div class="top-grid">
+      <div class="card">
+        <h2>Thêm chứng chỉ mới</h2>
+        <form id="certificate-form">
+          <div class="field">
+            <label for="certificate-title">Tên chứng chỉ / môn học</label>
+            <input id="certificate-title" type="text" placeholder="Ví dụ: Cybersecurity Professional Certificate" required>
+          </div>
+
+          <div class="field">
+            <label for="certificate-issuer">Tổ chức cấp</label>
+            <input id="certificate-issuer" type="text" placeholder="Ví dụ: Google / Coursera" required>
+          </div>
+
+          <div class="field">
+            <label for="certificate-date">Thời gian</label>
+            <input id="certificate-date" type="month">
+          </div>
+
+          <div class="field">
+            <label for="certificate-images">Chọn ảnh chứng chỉ</label>
+            <input id="certificate-images" type="file" accept="image/*" multiple webkitdirectory>
+            <small style="color: var(--muted);">Bạn có thể chọn nhiều ảnh hoặc cả thư mục trên trình duyệt hỗ trợ.</small>
+          </div>
+
+          <div class="actions">
+            <button class="btn" type="submit">Lưu chứng chỉ</button>
+            <button id="reset-form" type="button" class="btn btn-secondary">Xóa form</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Hướng dẫn sử dụng</h2>
+        <p>Trang này cho phép bạn lưu trữ ảnh chứng chỉ khóa học và quản lý chúng theo từng mục. Ảnh được lưu trữ nội bộ trong trình duyệt, bạn có thể xem lại bất kỳ lúc nào khi mở lại trang này trên cùng một trình duyệt.</p>
+        <div class="status-bar">
+          <span id="cert-count">0 chứng chỉ đã lưu</span>
+          <span id="image-count">0 ảnh</span>
+        </div>
+        <button id="clear-all" class="btn btn-secondary">Xóa toàn bộ chứng chỉ</button>
+      </div>
+    </div>
+
+    <section class="gallery-section">
+      <div class="gallery-header">
+        <h2>Thư viện chứng chỉ</h2>
+        <button id="refresh-gallery" class="btn btn-secondary">Tải lại</button>
+      </div>
+      <div id="cert-list"></div>
+      <div id="empty-state" class="empty-state">Chưa có chứng chỉ nào trong kho. Hãy thêm chứng chỉ ở phía trên.</div>
+    </section>
+  </div>
+
+  <div id="image-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">Xem ảnh</h3>
+        <button id="modal-close" class="modal-close" aria-label="Close">×</button>
+      </div>
+      <img id="modal-image" src="" alt="Certificate preview">
+    </div>
+  </div>
+
+  <script>
+    const DB_NAME = 'certificateArchiveDB';
+    const STORE_NAME = 'certificates';
+
+    function openDatabase() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, 1);
+        request.onupgradeneeded = event => {
+          const db = event.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+          }
+        };
+        request.onsuccess = event => resolve(event.target.result);
+        request.onerror = event => reject(event.target.error);
+      });
+    }
+
+    async function getAllCertificates() {
+      const db = await openDatabase();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const store = tx.objectStore(STORE_NAME);
+        const request = store.getAll();
+        request.onsuccess = () => resolve(request.result || []);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    async function saveCertificate(certificate) {
+      const db = await openDatabase();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const store = tx.objectStore(STORE_NAME);
+        const request = store.put(certificate);
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    async function deleteCertificate(id) {
+      const db = await openDatabase();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const store = tx.objectStore(STORE_NAME);
+        const request = store.delete(id);
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    async function clearAllCertificates() {
+      const db = await openDatabase();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const store = tx.objectStore(STORE_NAME);
+        const request = store.clear();
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    function readFileAsDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve({ name: file.name, type: file.type, data: reader.result });
+        reader.onerror = () => reject(reader.error);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function formatDisplayDate(value) {
+      if (!value) return 'Không rõ';
+      const [year, month] = value.split('-');
+      return month ? `${month}/${year}` : year;
+    }
+
+    function updateStats(certificates) {
+      const certCount = certificates.length;
+      const imageCount = certificates.reduce((sum, cert) => sum + (cert.images?.length || 0), 0);
+      document.getElementById('cert-count').textContent = `${certCount} chứng chỉ đã lưu`;
+      document.getElementById('image-count').textContent = `${imageCount} ảnh`;
+    }
+
+    function openModal(title, src) {
+      document.getElementById('modal-title').textContent = title;
+      const img = document.getElementById('modal-image');
+      img.src = src;
+      document.getElementById('image-modal').classList.add('visible');
+    }
+
+    function closeModal() {
+      document.getElementById('image-modal').classList.remove('visible');
+      document.getElementById('modal-image').src = '';
+    }
+
+    async function renderGallery() {
+      const certList = document.getElementById('cert-list');
+      const emptyState = document.getElementById('empty-state');
+      const certificates = await getAllCertificates();
+      certList.innerHTML = '';
+
+      if (!certificates.length) {
+        emptyState.style.display = 'block';
+        updateStats(certificates);
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      certificates.sort((a, b) => b.savedAt - a.savedAt);
+
+      certificates.forEach(cert => {
+        const card = document.createElement('article');
+        card.className = 'gallery-card';
+
+        const metadata = document.createElement('div');
+        metadata.className = 'gallery-metadata';
+        metadata.innerHTML = `
+          <h3 class="gallery-meta-title">${cert.title}</h3>
+          <div class="meta-list">
+            <span class="meta-pill">${cert.issuer || 'Không rõ tổ chức'}</span>
+            <span class="meta-pill">${formatDisplayDate(cert.date)}</span>
+            <span class="meta-pill">${cert.images.length} ảnh</span>
+          </div>
+        `;
+
+        const actions = document.createElement('div');
+        actions.className = 'gallery-actions';
+
+        const viewButton = document.createElement('button');
+        viewButton.className = 'btn btn-secondary';
+        viewButton.textContent = 'Xem ảnh';
+        viewButton.addEventListener('click', () => {
+          const first = cert.images[0];
+          if (first) openModal(cert.title, first.data);
+        });
+
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'btn btn-secondary';
+        deleteButton.textContent = 'Xóa chứng chỉ';
+        deleteButton.addEventListener('click', async () => {
+          if (!confirm(`Bạn có muốn xóa chứng chỉ “${cert.title}” không?`)) return;
+          await deleteCertificate(cert.id);
+          renderGallery();
+        });
+
+        actions.append(viewButton, deleteButton);
+        metadata.appendChild(actions);
+
+        const imageGrid = document.createElement('div');
+        imageGrid.className = 'image-grid';
+
+        cert.images.forEach(image => {
+          const img = document.createElement('img');
+          img.className = 'image-thumb';
+          img.src = image.data;
+          img.alt = image.name;
+          img.title = image.name;
+          img.addEventListener('click', () => openModal(image.name, image.data));
+          imageGrid.appendChild(img);
+        });
+
+        card.append(metadata, imageGrid);
+        certList.appendChild(card);
+      });
+
+      updateStats(certificates);
+    }
+
+    async function handleFormSubmit(event) {
+      event.preventDefault();
+      const titleInput = document.getElementById('certificate-title');
+      const issuerInput = document.getElementById('certificate-issuer');
+      const dateInput = document.getElementById('certificate-date');
+      const filesInput = document.getElementById('certificate-images');
+
+      const title = titleInput.value.trim();
+      const issuer = issuerInput.value.trim();
+      const date = dateInput.value;
+      const files = Array.from(filesInput.files || []).filter(file => file.type.startsWith('image/'));
+
+      if (!title) {
+        alert('Vui lòng nhập tên chứng chỉ hoặc môn học.');
+        return;
+      }
+      if (!files.length) {
+        alert('Vui lòng chọn ít nhất một ảnh chứng chỉ.');
+        return;
+      }
+
+      const images = await Promise.all(files.map(readFileAsDataURL));
+
+      await saveCertificate({
+        id: `cert-${Date.now()}`,
+        title,
+        issuer,
+        date,
+        images,
+        savedAt: Date.now(),
+      });
+
+      titleInput.value = '';
+      issuerInput.value = '';
+      dateInput.value = '';
+      filesInput.value = '';
+      await renderGallery();
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      document.getElementById('certificate-form').addEventListener('submit', handleFormSubmit);
+      document.getElementById('reset-form').addEventListener('click', () => {
+        document.getElementById('certificate-form').reset();
+      });
+      document.getElementById('refresh-gallery').addEventListener('click', renderGallery);
+      document.getElementById('clear-all').addEventListener('click', async () => {
+        if (!confirm('Bạn có chắc muốn xóa toàn bộ chứng chỉ?')) return;
+        await clearAllCertificates();
+        await renderGallery();
+      });
+      document.getElementById('modal-close').addEventListener('click', closeModal);
+      document.getElementById('image-modal').addEventListener('click', event => {
+        if (event.target === event.currentTarget) closeModal();
+      });
+      await renderGallery();
+    });
+  </script>
+</body>
+</html>
