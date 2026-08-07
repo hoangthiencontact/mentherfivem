@@ -353,8 +353,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1400);
   });
 })();
-
-
+ 
+(function initCertificateFolder() {
+  const folderButton = document.getElementById('open-cert-folder');
+  const folderInput  = document.getElementById('cert-folder-input');
+  const folderPanel  = document.getElementById('cert-folder-contents');
+  const folderGrid   = document.getElementById('cert-folder-grid');
+  if (!folderButton || !folderInput || !folderPanel || !folderGrid) return;
+ 
+  folderButton.addEventListener('click', () => {
+    folderInput.click();
+  });
+ 
+  folderInput.addEventListener('change', () => {
+    const files = Array.from(folderInput.files || []).filter(file => file.type.startsWith('image/'));
+    folderGrid.innerHTML = '';
+ 
+    if (files.length === 0) {
+      folderGrid.innerHTML = '<p class="cert-folder-empty">No image files were selected. Please choose a folder containing your certificate images.</p>';
+      folderPanel.classList.add('visible');
+      return;
+    }
+ 
+    files.forEach(file => {
+      const item = document.createElement('div');
+      item.className = 'cert-folder-item';
+ 
+      const thumb = document.createElement('img');
+      thumb.className = 'cert-folder-thumb';
+      thumb.alt = file.name;
+      thumb.src = URL.createObjectURL(file);
+      thumb.addEventListener('load', () => URL.revokeObjectURL(thumb.src));
+ 
+      const name = document.createElement('span');
+      name.className = 'cert-folder-name';
+      name.textContent = file.name;
+ 
+      item.appendChild(thumb);
+      item.appendChild(name);
+      folderGrid.appendChild(item);
+    });
+ 
+    folderPanel.classList.add('visible');
+  });
+})();
+ 
 /* ── 9. FOOTER YEAR ───────────────────────────────────────── */
 (function setYear() {
   const el = document.getElementById('current-year');
