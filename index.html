@@ -121,12 +121,18 @@
   <section id="home" class="hero">
     <div class="hero-scanlines"></div>
     <div class="hero-content">
+    
+  <!-- ============================================================
+       HERO SECTION
+    <div class="hero-scanlines"></div>
+    <div class="hero-content">
       <div class="hero-terminal-bar">
         <span class="terminal-dot dot-red"></span>
         <span class="terminal-dot dot-yellow"></span>
         <span class="terminal-dot dot-green"></span>
         <span class="terminal-title">root@cybersec:~</span>
       </div>
+  ============================================================ -->
 
       <div class="hero-banner">
           <div class="bg_img">
@@ -307,7 +313,7 @@
         <div class="section-line"></div>
       </div>
 
-      <div class="skills-categories">
+      <div class="skills-categories-col">
 
         <!-- Cybersecurity Skills -->
         <div class="skill-category" data-aos="fade-up" data-aos-delay="100">
@@ -370,29 +376,61 @@
       </div>
     </div>
   </section>
-
+  
   <!-- ============================================================
-       ACHIEVEMENTS SECTION
+       RESUME SECTION
   ============================================================ -->
-  <section id="achievements" class="achievements section section-dark">
+  <section id="resume" class="resume section">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
-        <h2 class="section-title">Achievements</h2>
+        <h2 class="section-title">My Resume</h2>
+        <h3 class="section-subtitle">Education & Growth Journey</h3>
         <div class="section-line"></div>
       </div>
 
-      <div class="timeline">
-
-        <div class="timeline-item" data-aos="fade-left" data-aos-delay="150">
-          <div class="timeline-icon"><i class="fas fa-certificate"></i></div>
-          <div class="timeline-content">
-            <div class="timeline-date">2024</div>
-            <h3>Hoàn thành Google Cybersecurity Certificate</h3>
-            <p>Hoàn thành chương trình đào tạo 6 tháng của Google về an ninh mạng, bao gồm Python automation, SIEM tools và incident response.</p>
-            <span class="timeline-badge">Certification</span>
+      <div class="resume-content">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2025 — PRESENT</div>
+              <h3>Duy Tan University (DTU)</h3>
+              <p>Studying Cybersecurity with a focus on programming, software design, and core IT infrastructure.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-code"></i></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2026</div>
+              <h3>Personal Projects</h3>
+              <p>Developed Phúc Travel, PHÚC THIỆN POS, and various web applications.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-laptop-code"></i></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2024</div>
+              <h3>Software Development</h3>
+              <p>Self-taught web developer building landing pages and personal tools.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-school"></i></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2022 — 2025</div>
+              <h3>Nguyen Van Thoai High School</h3>
+              <p>Completed general education with a strong foundation in core subjects and soft skills.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-book"></i></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2018 — 2022</div>
+              <h3>Kim Dong Secondary School</h3>
+              <p>Acquired basic academic knowledge and essential learning methodologies.</p>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -416,9 +454,14 @@
           <div class="cert-info">
             <h3>Cybersecurity Professional Certificate</h3>
             <span class="cert-org">Google / Coursera</span>
-            <span class="cert-date"><i class="fas fa-calendar-alt"></i> Mar 2024</span>
+            <span class="cert-date"><i class="fas fa-calendar-alt"></i> Mar 2025</span>
           </div>
           <div class="cert-ribbon">Verified</div>
+          <button id="open-cert-folder" class="btn btn-secondary cert-open-btn" type="button">
+            <a href="#google-coursera">
+            <i class="fas fa-folder-open"></i> Open certificate
+            </a>
+          </button>
         </div>
 
         <div class="cert-card" data-aos="zoom-in" data-aos-delay="200">
@@ -431,6 +474,11 @@
             <span class="cert-date"><i class="fas fa-calendar-alt"></i> May 2024</span>
           </div>
           <div class="cert-ribbon">Completed</div>
+          <button id="open-cert-folder" class="btn btn-secondary cert-open-btn" type="button">
+            <a href="#tryhackme">
+            <i class="fas fa-folder-open"></i> Open certificate
+            </a>
+          </button>
         </div>
 
         <div class="cert-card" data-aos="zoom-in" data-aos-delay="300">
@@ -443,8 +491,20 @@
             <span class="cert-date"><i class="fas fa-calendar-alt"></i> Aug 2024</span>
           </div>
           <div class="cert-ribbon">In Progress</div>
+          <button id="open-cert-folder" class="btn btn-secondary cert-open-btn" type="button">
+            <a href="#comp-tia">
+            <i class="fas fa-folder-open"></i> Open certificate
+            </a>
+          </button>
         </div>
+      </div>
 
+      <div class="cert-folder-panel">
+        <div id="cert-folder-contents" class="cert-folder-contents">
+          <h3>Certificate folder contents</h3>
+          <p class="cert-folder-note">Select a local folder with your certificate images to preview them here.</p>
+          <div id="cert-folder-grid" class="cert-folder-grid"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -509,10 +569,10 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-logo">
-        <span class="logo-bracket">CyberSecurity Network</span><span class="logo-accent"></span><span class="logo-bracket"></span>
+        <span class="logo-bracket">Hoàng Thiện CyberSecurity</span><span class="logo-accent"></span><span class="logo-bracket"></span>
       </div>
       <p class="footer-copy">
-        &copy; <span id="current-year"></span> Bảo lưu mọi quyền. | Thiết kế bởi Thiện Trần.
+        &copy; <span id="current-year"></span> Trần Trần Hoàng Thiện. All rights reserved.
       </p>
       <div class="footer-socials">
         <a href="https://github.com/hoangthiencontact" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
