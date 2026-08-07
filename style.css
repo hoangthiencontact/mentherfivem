@@ -385,6 +385,39 @@ img { max-width: 100%; display: block; }
     display: block;
 }
 
+.stats {
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    max-width:1132px;
+    margin:-110px auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+}
+
+.stats div {
+    padding:32px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+    border-right:1px solid var(--line);
+}
+
+.stats div:last-child {
+    border:0;
+}
+
+.stats strong {
+    font-size:34px;
+}
+
+.stats span {
+    font-size:10px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
 .hero-content {
   max-width: 680px;
   margin: 0 auto;
@@ -581,6 +614,13 @@ img { max-width: 100%; display: block; }
 /* Avatar */
 .about-avatar-col { display: flex; flex-direction: column; align-items: center; gap: 20px; }
 
+.about-info-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
 .avatar-frame {
   position: relative;
   width: 260px; height: 260px;
@@ -665,6 +705,7 @@ img { max-width: 100%; display: block; }
   color: var(--text-secondary);
   line-height: 1.9;
   margin-bottom: 32px;
+  text-align: left;
 }
 
 .info-grid {
@@ -706,6 +747,7 @@ img { max-width: 100%; display: block; }
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: flex-start;
 }
 
 .tag {
