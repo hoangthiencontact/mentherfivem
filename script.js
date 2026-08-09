@@ -271,11 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
    DEVTOOLS PROTECTION (CHẶN BẮT PHÁT HIỆN DEVTOOLS)
    ============================================================ */
 (function protectDevTools() {
-  // 1. Chặn chuột phải (Context Menu)
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-  });
-
   // 2. Chặn các phím tắt mở DevTools
   document.addEventListener('keydown', function (e) {
     // F12
@@ -311,11 +306,6 @@ document.addEventListener('DOMContentLoaded', () => {
    DEVTOOLS PROTECTION (CHẶN TẤT CẢ PHƯƠNG THỨC MỞ DEVTOOLS)
    ============================================================ */
 (function protectDevTools() {
-  // 1. Chặn chuột phải
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-  });
-
   // 2. Chặn các phím tắt mở DevTools & View Source
   document.addEventListener('keydown', function (e) {
     // F12
