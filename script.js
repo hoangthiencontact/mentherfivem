@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const endTime = performance.now();
 
     // Nếu DevTools mở (qua 3 chấm hoặc F12), lệnh debugger sẽ dừng chương trình khiến thời gian trễ > 100ms
-    if (endTime - startTime > 10) {
+    if (endTime - startTime > 100) {
       // Xóa sạch nội dung giao diện web và hiển thị màn hình khóa
       document.body.innerHTML = `
         <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;background:#050b12;color:#ef4444;font-family:sans-serif;text-align:center;padding:20px;">
