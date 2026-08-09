@@ -545,3 +545,93 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 500);
 })();
+
+/* ============================================================
+   DEVTOOLS PROTECTION (CHẶN TẤT CẢ PHƯƠNG THỨC MỞ DEVTOOLS)
+   ============================================================ */
+(function protectDevTools() {
+  // 1. Chặn chuột phải
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
+
+  // 2. Chặn các phím tắt mở DevTools & View Source
+  document.addEventListener('keydown', function (e) {
+    // F12
+    if (e.key === 'F12' || e.keyCode === 123) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Ctrl+Shift+I / J / C / K (DevTools & Console)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && 
+        ['I', 'i', 'J', 'j', 'C', 'c', 'K', 'k'].includes(e.key)) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Ctrl+U (View Source), Ctrl+S (Save Page)
+    if ((e.ctrlKey || e.metaKey) && ['U', 'u', 'S', 's'].includes(e.key)) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // 3. Bẫy Debugger & Phát hiện DevTools mở từ Menu 3 chấm
+  function detectDevTools() {
+    const startTime = performance.now();
+    
+    // Kích hoạt bẫy debugger
+    (function () {}["constructor"]("debugger")());
+
+    const endTime = performance.now();
+
+    // Nếu DevTools mở (qua 3 chấm hoặc F12), lệnh debugger sẽ dừng chương trình khiến thời gian trễ > 100ms
+    if (endTime - startTime > 100) {
+      // Xóa sạch nội dung giao diện web và hiển thị màn hình khóa
+      document.body.innerHTML = `
+        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;background:#050b12;color:#ef4444;font-family:sans-serif;text-align:center;padding:20px;">
+          <h1 style="font-size:32px;margin-bottom:10px;">⚠️ PHÁT HIỆN DEVTOOLS!</h1>
+          <p style="color:#94a3b8;font-size:18px;">Truy cập bị từ chối. Vui lòng đóng Developer Tools để tiếp tục sử dụng trang web.</p>
+        </div>
+      `;
+    }
+  }
+
+  // Chạy vòng lặp liên tục mỗi 300ms
+  setInterval(detectDevTools, 300);
+})();
+
+/* ============================================================
+   DEVTOOLS PROTECTION (BẮA VÀ LÀM ĐƠ DEVTOOLS TỪ MENU 3 CHẤM)
+   ============================================================ */
+(function protectDevTools() {
+  // 1. Chặn chuột phải & phím tắt
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (
+      e.key === 'F12' ||
+      ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(e.key)) ||
+      ((e.ctrlKey || e.metaKey) && ['U', 'S', 'u', 's'].includes(e.key))
+    ) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // 2. Bẫy treo/đóng trang khi mở DevTools từ Menu 3 chấm
+  setInterval(function () {
+    const startTime = performance.now();
+    
+    // Tạo bẫy debugger liên tục
+    (function () {}["constructor"]("debugger")());
+
+    const endTime = performance.now();
+
+    // Nếu phát hiện DevTools đang mở (trễ > 100ms)
+    if (endTime - startTime > 100) {
+      // Chuyển hướng ngay lập tức sang trang trắng để xóa sạch luồng làm việc
+      window.location.href = "about:blank";
+    }
+  }, 100);
+})();
