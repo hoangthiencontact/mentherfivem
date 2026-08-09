@@ -1,0 +1,7 @@
+cd /d "C:\Users\LAPTOP AK\OneDrive\문서\GitHub\mentherfivem"
+
+javascript-obfuscator script.js --output script.js --compact true --control-flow-flattening true --dead-code-injection true --debug-protection true --disable-console-output true --string-array true --string-array-encoding "base64"
+
+git add script.js
+git commit -m "Protect script.js with obfuscation"
+git push
