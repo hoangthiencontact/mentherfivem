@@ -635,3 +635,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 100);
 })();
+
+/* ============================================================
+   DEVTOOLS & ELEMENT INSPECTOR PROTECTION
+   ============================================================ */
+(function protectElementInspect() {
+  // 1. Chặn chuột phải (Không cho bấm "Inspect")
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  // 2. Chặn phím tắt soi Element (Ctrl+Shift+C / Cmd+Option+C) & DevTools
+  document.addEventListener('keydown', e => {
+    // Chặn F12
+    if (e.key === 'F12' || e.keyCode === 123) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Chặn Ctrl+Shift+C (Soi Element), Ctrl+Shift+I, Ctrl+Shift+J
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && 
+        ['C', 'c', 'I', 'i', 'J', 'j', 'K', 'k'].includes(e.key)) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Chặn Ctrl+U (Xem mã nguồn)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u')) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // 3. Xóa sạch cây DOM (Thẻ Elements) nếu phát hiện DevTools/Inspect được bật
+  setInterval(function () {
+    const startTime = performance.now();
+    
+    // Bẫy debugger
+    (function () {}["constructor"]("debugger")());
+
+    const endTime = performance.now();
+
+    // Nếu thời gian trễ > 100ms (DevTools/Elements đang mở)
+    if (endTime - startTime > 100) {
+      // Xóa sạch toàn bộ thẻ HTML trong body để tab Elements bị trống hoàn toàn
+      document.body.innerHTML = '';
+      window.location.href = "about:blank";
+    }
+  }, 100);
+})();
