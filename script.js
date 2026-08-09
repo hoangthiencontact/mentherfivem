@@ -488,3 +488,60 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 })();
+
+
+
+/* ============================================================
+   DEVTOOLS PROTECTION (CHẶN BẮT PHÁT HIỆN DEVTOOLS)
+   ============================================================ */
+(function protectDevTools() {
+  // 1. Chặn chuột phải (Context Menu)
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
+
+  // 2. Chặn các phím tắt mở DevTools
+  document.addEventListener('keydown', function (e) {
+    // F12
+    if (e.key === 'F12' || e.keyCode === 123) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C (Chrome, Firefox, Edge)
+    // Cmd+Option+I, Cmd+Option+J, Cmd+Option+C (macOS)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && 
+        (e.key === 'I' || e.key === 'i' || 
+         e.key === 'J' || e.key === 'j' || 
+         e.key === 'C' || e.key === 'c')) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Ctrl+U / Cmd+U (Xem nguồn trang - View Source)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u')) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Ctrl+S / Cmd+S (Lưu trang web)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'S' || e.key === 's')) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // 3. Vòng lặp debugger liên tục (Làm gián đoạn/treo tab nếu cố tình mở DevTools)
+  setInterval(function () {
+    const startTime = performance.now();
+    
+    // Gọi lệnh debugger
+    (function () {}["constructor"]("debugger")());
+
+    const endTime = performance.now();
+    // Nếu DevTools đang mở, lệnh debugger sẽ tạm dừng thực thi khiến thời gian chênh lệch tăng cao
+    if (endTime - startTime > 100) {
+      document.body.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#050b12;color:#ef4444;font-family:sans-serif;font-size:24px;font-weight:bold;">Phát hiện DevTools! Truy cập bị từ chối.</div>';
+    }
+  }, 500);
+})();
