@@ -1,5 +1,8 @@
 cd /d "C:\Users\LAPTOP AK\OneDrive\문서\GitHub\mentherfivem"
 
+cd /d "C:\Users\Admin\Documents\GitHub\mentherfivem\mentherfivem"
+
+
 javascript-obfuscator script.js --output script.js --compact true --control-flow-flattening true --dead-code-injection true --debug-protection true --disable-console-output true --string-array true --string-array-encoding "base64"
 
 git add script.js
