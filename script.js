@@ -266,3 +266,99 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => frame.classList.remove('glitching'), 600);
   });
 })();
+
+/* ============================================================
+   DEVTOOLS PROTECTION (CHẶN BẮT PHÁT HIỆN DEVTOOLS)
+   ============================================================ */
+(function protectDevTools() {
+  // 1. Chặn chuột phải (Context Menu)
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
+
+  // 2. Chặn các phím tắt mở DevTools
+  document.addEventListener('keydown', function (e) {
+    // F12
+    if (e.key === 'F12' || e.keyCode === 123) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C (Chrome, Firefox, Edge)
+    // Cmd+Option+I, Cmd+Option+J, Cmd+Option+C (macOS)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && 
+        (e.key === 'I' || e.key === 'i' || 
+         e.key === 'J' || e.key === 'j' || 
+         e.key === 'C' || e.key === 'c')) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Ctrl+U / Cmd+U (Xem nguồn trang - View Source)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u')) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Ctrl+S / Cmd+S (Lưu trang web)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'S' || e.key === 's')) {
+      e.preventDefault();
+      return false;
+    }
+  });
+})();
+/* ============================================================
+   DEVTOOLS PROTECTION (CHẶN TẤT CẢ PHƯƠNG THỨC MỞ DEVTOOLS)
+   ============================================================ */
+(function protectDevTools() {
+  // 1. Chặn chuột phải
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
+
+  // 2. Chặn các phím tắt mở DevTools & View Source
+  document.addEventListener('keydown', function (e) {
+    // F12
+    if (e.key === 'F12' || e.keyCode === 123) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Ctrl+Shift+I / J / C / K (DevTools & Console)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && 
+        ['I', 'i', 'J', 'j', 'C', 'c', 'K', 'k'].includes(e.key)) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Ctrl+U (View Source), Ctrl+S (Save Page)
+    if ((e.ctrlKey || e.metaKey) && ['U', 'u', 'S', 's'].includes(e.key)) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // 3. Bẫy Debugger & Phát hiện DevTools mở từ Menu 3 chấm
+  function detectDevTools() {
+    const startTime = performance.now();
+    
+    // Kích hoạt bẫy debugger
+    (function () {}["constructor"]("debugger")());
+
+    const endTime = performance.now();
+
+    // Nếu DevTools mở (qua 3 chấm hoặc F12), lệnh debugger sẽ dừng chương trình khiến thời gian trễ > 100ms
+    if (endTime - startTime > 100) {
+      // Xóa sạch nội dung giao diện web và hiển thị màn hình khóa
+      document.body.innerHTML = `
+        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;background:#050b12;color:#ef4444;font-family:sans-serif;text-align:center;padding:20px;">
+          <h1 style="font-size:32px;margin-bottom:10px;">⚠️ PHÁT HIỆN DEVTOOLS!</h1>
+          <p style="color:#94a3b8;font-size:18px;">Truy cập bị từ chối. Vui lòng đóng Developer Tools để tiếp tục sử dụng trang web.</p>
+        </div>
+      `;
+    }
+  }
+
+  // Chạy vòng lặp liên tục mỗi 300ms
+  setInterval(detectDevTools, 300);
+})();
