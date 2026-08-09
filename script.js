@@ -303,52 +303,156 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 /* ============================================================
-   DEVTOOLS PROTECTION (CHẶN TẤT CẢ PHƯƠNG THỨC MỞ DEVTOOLS)
-   ============================================================ */
+   DEVTOOLS PROTECTION — DETECT & AUTO RELOAD
+============================================================ */
 (function protectDevTools() {
-  // 2. Chặn các phím tắt mở DevTools & View Source
-  document.addEventListener('keydown', function (e) {
-    // F12
-    if (e.key === 'F12' || e.keyCode === 123) {
-      e.preventDefault();
-      return false;
+
+    let detected = false;
+
+    // ── 1. CHẶN PHÍM TẮT DEVTOOLS ──────────────────────────
+    document.addEventListener('keydown', function (e) {
+
+        // F12
+        if (e.key === 'F12' || e.keyCode === 123) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+
+        // Ctrl + Shift + I/J/C/K
+        if (
+            (e.ctrlKey || e.metaKey) &&
+            e.shiftKey &&
+            ['I', 'i', 'J', 'j', 'C', 'c', 'K', 'k'].includes(e.key)
+        ) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+
+        // Ctrl + U
+        if (
+            (e.ctrlKey || e.metaKey) &&
+            ['U', 'u'].includes(e.key)
+        ) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+
+        // Ctrl + S
+        if (
+            (e.ctrlKey || e.metaKey) &&
+            ['S', 's'].includes(e.key)
+        ) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+
+    }, true);
+
+
+    // ── 2. XỬ LÝ KHI PHÁT HIỆN DEVTOOLS ─────────────────────
+    function handleDevToolsDetected() {
+
+        if (detected) return;
+
+        detected = true;
+
+        // Xóa toàn bộ giao diện
+        document.documentElement.innerHTML = `
+            <head>
+                <title>Access Denied</title>
+                <meta charset="UTF-8">
+            </head>
+
+            <body style="
+                margin:0;
+                width:100%;
+                height:100vh;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                background:#050b12;
+                color:#fff;
+                font-family:Arial,sans-serif;
+                text-align:center;
+            ">
+
+                <div style="
+                    max-width:600px;
+                    padding:40px;
+                ">
+
+                    <div style="
+                        font-size:70px;
+                        margin-bottom:20px;
+                    ">
+                        ⚠️
+                    </div>
+
+                    <h1 style="
+                        margin:0 0 15px;
+                        color:#ef4444;
+                        font-size:32px;
+                    ">
+                        PHÁT HIỆN DEVTOOLS
+                    </h1>
+
+                    <p style="
+                        margin:0;
+                        color:#94a3b8;
+                        font-size:17px;
+                        line-height:1.6;
+                    ">
+                        Developer Tools đã được phát hiện.
+                        <br>
+                        Trang sẽ tự động tải lại...
+                    </p>
+
+                    <div style="
+                        margin-top:25px;
+                        color:#00f5d4;
+                        font-size:14px;
+                    ">
+                        Security Protection Active
+                    </div>
+
+                </div>
+
+            </body>
+        `;
+
+        // Reload sau 2 giây
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
     }
 
-    // Ctrl+Shift+I / J / C / K (DevTools & Console)
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && 
-        ['I', 'i', 'J', 'j', 'C', 'c', 'K', 'k'].includes(e.key)) {
-      e.preventDefault();
-      return false;
+
+    // ── 3. PHÁT HIỆN DEVTOOLS BẰNG DEBUGGER ────────────────
+    function detectDevTools() {
+
+        if (detected) return;
+
+        const startTime = performance.now();
+
+        // Debugger trap
+        (function () {
+            debugger;
+        })();
+
+        const endTime = performance.now();
+
+        // Nếu debugger bị dừng lâu → khả năng DevTools đang mở
+        if (endTime - startTime > 100) {
+            handleDevToolsDetected();
+        }
     }
 
-    // Ctrl+U (View Source), Ctrl+S (Save Page)
-    if ((e.ctrlKey || e.metaKey) && ['U', 'u', 'S', 's'].includes(e.key)) {
-      e.preventDefault();
-      return false;
-    }
-  });
 
-  // 3. Bẫy Debugger & Phát hiện DevTools mở từ Menu 3 chấm
-  function detectDevTools() {
-    const startTime = performance.now();
-    
-    // Kích hoạt bẫy debugger
-    (function () {}["constructor"]("debugger")());
+    // ── 4. KIỂM TRA LIÊN TỤC ────────────────────────────────
+    setInterval(detectDevTools, 500);
 
-    const endTime = performance.now();
-
-    // Nếu DevTools mở (qua 3 chấm hoặc F12), lệnh debugger sẽ dừng chương trình khiến thời gian trễ > 100ms
-    if (endTime - startTime > 100) {
-      // Xóa sạch nội dung giao diện web và hiển thị màn hình khóa
-      document.body.innerHTML = `
-        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;background:#050b12;color:#ef4444;font-family:sans-serif;text-align:center;padding:20px;">
-          <h1 style="font-size:32px;margin-bottom:10px;">⚠️ PHÁT HIỆN DEVTOOLS!</h1>
-          <p style="color:#94a3b8;font-size:18px;">Truy cập bị từ chối. Vui lòng đóng Developer Tools để tiếp tục sử dụng trang web.</p>
-        </div>
-      `;
-    }
-  }
-
-  // Chạy vòng lặp liên tục mỗi 300ms
-  setInterval(detectDevTools, 300);
 })();
