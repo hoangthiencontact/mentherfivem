@@ -8,3 +8,7 @@ javascript-obfuscator script.js --output script.js --compact true --control-flow
 git add script.js
 git commit -m "Protect script.js with obfuscation"
 git push
+
+git add .
+git commit -m "Update"
+git push origin main
