@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chứng Chỉ Của Tôi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg-primary: #050b12;
+      --bg-secondary: #0a1525;
+      --bg-card: #0f1f35;
+      --surface: rgba(15, 31, 53, 0.8);
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --accent-cyan: #00f5d4;
+      --accent-blue: #0ea5e9;
+      --accent-purple: #8b5cf6;
+      --border: rgba(0, 245, 212, 0.15);
+      --radius: 16px;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: radial-gradient(circle at top, rgba(0, 245, 212, 0.05), transparent 35%), var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Rajdhani', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    body {
+      padding-top: 20px;
+      padding-bottom: 60px;
+    }
+
+    /* ──────────────────── HEADER ─────────────────────── */
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: slideDown 0.6s ease-out;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 245, 212, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      margin-bottom: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .header-badge i {
+      font-size: 1rem;
+    }
+
+    .header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ──────────────────── FILTERS ─────────────────────── */
+    .filters-container {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition);
+      font-size: 0.95rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 500;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: rgba(0, 245, 212, 0.15);
+      color: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+    }
+
+    /* ──────────────────── GRID LAYOUT ─────────────────────── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .certificates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    /* ──────────────────── CERTIFICATE CARD ─────────────────────── */
+    .cert-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 30px rgba(0, 245, 212, 0.2), var(--shadow);
+    }
+
+    .cert-image-container {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(0, 245, 212, 0.1), rgba(14, 165, 233, 0.1));
+    }
+
+    .cert-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition);
+    }
+
+    .cert-card:hover .cert-image {
+      transform: scale(1.05);
+    }
+
+    .cert-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    .cert-content {
+      padding: 24px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cert-logos {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+
+    .cert-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(0, 245, 212, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      border: 1px solid rgba(0, 245, 212, 0.3);
+    }
+
+    .cert-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .cert-issuer {
+      font-size: 0.95rem;
+      color: var(--accent-blue);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .cert-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .meta-tag {
+      background: rgba(0, 245, 212, 0.08);
+      border: 1px solid rgba(0, 245, 212, 0.2);
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ──────────────────── MODAL ─────────────────────── */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow);
+      animation: slideUp 0.3s ease-out;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg-secondary);
+    }
+
+    .modal-header h2 {
+      font-size: 1.4rem;
+      margin: 0;
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: color var(--transition);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--accent-cyan);
+      background: rgba(0, 245, 212, 0.1);
+    }
+
+    .modal-body {
+      padding: 32px;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .modal-info {
+      display: grid;
+      gap: 20px;
+    }
+
+    .modal-section {
+      display: grid;
+      gap: 8px;
+    }
+
+    .modal-section-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    .modal-section-content {
+      font-size: 1.05rem;
+      color: var(--text-primary);
+    }
+
+    .modal-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .modal-gallery-thumb {
+      width: 100%;
+      aspect-ratio: 1;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .modal-gallery-thumb:hover {
+      border-color: var(--accent-cyan);
+      transform: scale(1.05);
+    }
+
+    .modal-gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ──────────────────── EMPTY STATE ─────────────────────── */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-secondary);
+    }
+
+    .empty-state-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .empty-state h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .empty-state p {
+      font-size: 1rem;
+      margin-bottom: 24px;
+    }
+
+    .empty-state-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: var(--bg-primary);
+      border: none;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--transition);
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    .empty-state-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    /* ──────────────────── ANIMATIONS ─────────────────────── */
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ──────────────────── RESPONSIVE ─────────────────────── */
+    @media (max-width: 768px) {
+      .certificates-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .modal-body {
+        padding: 20px;
+      }
+
+      .filters-container {
+        padding: 0 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .certificates-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-badge {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+      }
+
+      .modal-content {
+        border-radius: 12px;
+      }
+
+      .modal-header {
+        padding: 16px;
+      }
+
+      .modal-body {
+        padding: 16px;
+      }
+    }
+
+    /* ──────────────────── SCROLLBAR ─────────────────────── */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 245, 212, 0.05);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-cyan);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-blue);
+    }
+
+    /* ──────────────────── STATS BAR ─────────────────────── */
+    .stats-bar {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ──────────────────── HEADER ─────────────────────── -->
+  <div class="container">
+    <div class="header">
+      <div class="header-badge">
+        <i class="fas fa-certificate"></i>
+        <span>Các Chứng Chỉ Đã Hoàn Thành</span>
+      </div>
+      <h1>Chứng Chỉ Của Tôi</h1>
+      <p>Những chứng chỉ chuyên môn và khóa học mà tôi đã hoàn thành</p>
+    </div>
+
+    <!-- ──────────────────── STATS ─────────────────────── -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-number" id="total-certs">0</span>
+        <span class="stat-label">Chứng Chỉ</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="total-companies">0</span>
+        <span class="stat-label">Công Ty/Tổ Chức</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="total-images">0</span>
+        <span class="stat-label">Ảnh Chứng Chỉ</span>
+      </div>
+    </div>
+
+    <!-- ──────────────────── FILTERS ─────────────────────── -->
+    <div class="filters-container">
+      <button class="filter-btn active" data-filter="all">Tất Cả</button>
+      <button class="filter-btn" data-filter="coursera">Coursera</button>
+      <button class="filter-btn" data-filter="google">Google</button>
+      <button class="filter-btn" data-filter="other">Khác</button>
+    </div>
+  </div>
+
+  <!-- ──────────────────── CERTIFICATES GRID ─────────────────────── -->
+  <div class="container">
+    <div class="certificates-grid" id="certificates-grid"></div>
+    <div class="empty-state" id="empty-state" style="display: none;">
+      <div class="empty-state-icon">📜</div>
+      <h3>Chưa có chứng chỉ</h3>
+      <p>Hãy đăng ký các khóa học để nhận chứng chỉ</p>
+      <a href="certificates.html" class="empty-state-btn">Thêm Chứng Chỉ</a>
+    </div>
+  </div>
+
+  <!-- ──────────────────── MODAL ─────────────────────── -->
+  <div class="modal" id="certificate-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Chi Tiết Chứng Chỉ</h2>
+        <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img id="modal-image" class="modal-image" src="" alt="Certificate">
+        <div class="modal-info">
+          <div class="modal-section">
+            <div class="modal-section-title">Tên Chứng Chỉ</div>
+            <div class="modal-section-content" id="modal-cert-title"></div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">Tổ Chức Cấp</div>
+            <div class="modal-section-content" id="modal-cert-issuer"></div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">Thời Gian Hoàn Thành</div>
+            <div class="modal-section-content" id="modal-cert-date"></div>
+          </div>
+          <div class="modal-section" id="modal-gallery-section">
+            <div class="modal-section-title">Các Ảnh Chứng Chỉ</div>
+            <div class="modal-gallery" id="modal-gallery"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ──────────────────── DATA MANAGEMENT ─────────────────────
+    const DB_NAME = 'certificateArchiveDB';
+    const STORE_NAME = 'certificates';
+
+    async function openDatabase() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, 1);
+        request.onsuccess = () => resolve(request.target.result);
+        request.onerror = () => reject(request.target.error);
+      });
+    }
+
+    async function getAllCertificates() {
+      try {
+        const db = await openDatabase();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(STORE_NAME, 'readonly');
+          const store = tx.objectStore(STORE_NAME);
+          const request = store.getAll();
+          request.onsuccess = () => resolve(request.result || []);
+          request.onerror = () => reject(request.target.error);
+        });
+      } catch (error) {
+        console.error('Error fetching certificates:', error);
+        return [];
+      }
+    }
+
+    // ──────────────────── UI STATE ─────────────────────
+    let allCertificates = [];
+    let currentFilter = 'all';
+    let currentModal = null;
+
+    // ──────────────────── HELPER FUNCTIONS ─────────────────────
+    function getOrganizerLogo(issuer) {
+      if (!issuer) return '🎓';
+      const lower = issuer.toLowerCase();
+      if (lower.includes('google')) return '🔍';
+      if (lower.includes('coursera')) return '📚';
+      if (lower.includes('udemy')) return '🎬';
+      if (lower.includes('microsoft')) return '🪟';
+      if (lower.includes('aws')) return '☁️';
+      if (lower.includes('cisco')) return '🔗';
+      return '🎓';
+    }
+
+    function getOrganizerCategory(issuer) {
+      if (!issuer) return 'other';
+      const lower = issuer.toLowerCase();
+      if (lower.includes('coursera')) return 'coursera';
+      if (lower.includes('google')) return 'google';
+      return 'other';
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return 'Không rõ';
+      const [year, month] = dateStr.split('-');
+      if (month) {
+        const date = new Date(year, month - 1);
+        return date.toLocaleDateString('vi-VN', { year: 'numeric', month: 'long' });
+      }
+      return year;
+    }
+
+    function shouldShowCertificate(cert, filter) {
+      if (filter === 'all') return true;
+      return getOrganizerCategory(cert.issuer) === filter;
+    }
+
+    // ──────────────────── RENDER FUNCTIONS ─────────────────────
+    function updateStats() {
+      const totalCerts = allCertificates.length;
+      const totalCompanies = new Set(allCertificates.map(c => c.issuer)).size;
+      const totalImages = allCertificates.reduce((sum, c) => sum + (c.images?.length || 0), 0);
+
+      document.getElementById('total-certs').textContent = totalCerts;
+      document.getElementById('total-companies').textContent = totalCompanies;
+      document.getElementById('total-images').textContent = totalImages;
+    }
+
+    function renderCertificates() {
+      const grid = document.getElementById('certificates-grid');
+      const emptyState = document.getElementById('empty-state');
+      
+      const filtered = allCertificates.filter(cert => shouldShowCertificate(cert, currentFilter));
+      
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      grid.innerHTML = filtered.map(cert => {
+        const firstImage = cert.images?.[0]?.data || '';
+        const logo = getOrganizerLogo(cert.issuer);
+        const courseCount = cert.images?.length || 0;
+
+        return `
+          <div class="cert-card" data-cert-id="${cert.id}">
+            <div class="cert-image-container">
+              ${firstImage ? `<img class="cert-image" src="${firstImage}" alt="${cert.title}">` : ''}
+              <div class="cert-badge">${cert.images?.length || 0} ảnh</div>
+            </div>
+            <div class="cert-content">
+              <div class="cert-logos">
+                <div class="cert-logo">${logo}</div>
+              </div>
+              <h3 class="cert-title">${cert.title}</h3>
+              <p class="cert-issuer">${cert.issuer || 'Không rõ tổ chức'}</p>
+              <div class="cert-meta">
+                <span class="meta-tag">
+                  <i class="far fa-calendar"></i>
+                  ${formatDate(cert.date)}
+                </span>
+                <span class="meta-tag">
+                  <i class="far fa-images"></i>
+                  ${courseCount} ảnh
+                </span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Attach click handlers
+      document.querySelectorAll('.cert-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const certId = card.dataset.certId;
+          const cert = allCertificates.find(c => c.id === certId);
+          if (cert) openModal(cert);
+        });
+      });
+    }
+
+    function openModal(cert) {
+      const modal = document.getElementById('certificate-modal');
+      const firstImage = cert.images?.[0]?.data || '';
+
+      document.getElementById('modal-title').textContent = cert.title;
+      document.getElementById('modal-image').src = firstImage;
+      document.getElementById('modal-cert-title').textContent = cert.title;
+      document.getElementById('modal-cert-issuer').textContent = cert.issuer || 'Không rõ tổ chức';
+      document.getElementById('modal-cert-date').textContent = formatDate(cert.date);
+
+      // Render gallery
+      const gallery = document.getElementById('modal-gallery');
+      if (cert.images && cert.images.length > 0) {
+        gallery.innerHTML = cert.images.map((img, idx) => `
+          <div class="modal-gallery-thumb" onclick="changeModalImage('${idx}')">
+            <img src="${img.data}" alt="Certificate image ${idx + 1}">
+          </div>
+        `).join('');
+        currentModal = cert;
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('certificate-modal').classList.remove('active');
+      currentModal = null;
+    }
+
+    function changeModalImage(index) {
+      if (currentModal && currentModal.images) {
+        const image = currentModal.images[index];
+        if (image) {
+          document.getElementById('modal-image').src = image.data;
+        }
+      }
+    }
+
+    // ──────────────────── EVENT LISTENERS ─────────────────────
+    document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+
+    document.getElementById('certificate-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'certificate-modal') {
+        closeModal();
+      }
+    });
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderCertificates();
+      });
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ──────────────────── INITIALIZATION ─────────────────────
+    async function init() {
+      allCertificates = await getAllCertificates();
+      allCertificates.sort((a, b) => b.savedAt - a.savedAt);
+      updateStats();
+      renderCertificates();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+
+</body>
+</html>
