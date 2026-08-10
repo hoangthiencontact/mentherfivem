@@ -135,118 +135,127 @@
     }
 
     /* ──────────────────── CERTIFICATE CARD ─────────────────────── */
-    .cert-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+    .certificate__item {
+      width: auto;
+      height: auto;
+      background: #f5f5f7;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: var(--shadow);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 8px 40px rgba(0, 0, 0, 0.12);
       transition: all var(--transition);
       cursor: pointer;
       display: flex;
       flex-direction: column;
       animation: fadeInUp 0.5s ease-out;
+      padding: 24px;
+      text-align: center;
+      color: #1a1a1a;
     }
 
-    .cert-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--accent-cyan);
-      box-shadow: 0 0 30px rgba(0, 245, 212, 0.2), var(--shadow);
+    .certificate__item:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15), 0 16px 60px rgba(0, 0, 0, 0.2);
     }
 
-    .cert-image-container {
+    .certificate__logos {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 16px;
+      height: 60px;
+    }
+
+    .certificate__logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f59e0b, #f97316);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .certificate__logo.google {
+      background: linear-gradient(135deg, #4285f4, #ea4335, #fbbc04, #34a853);
+    }
+
+    .certificate__logo.coursera {
+      background: linear-gradient(135deg, #2f80ed, #1f5ab8);
+    }
+
+    .certificate__logo.aws {
+      background: linear-gradient(135deg, #ff9900, #ec7211);
+    }
+
+    .certificate__logo.microsoft {
+      background: linear-gradient(135deg, #00a4ef, #7fba00, #f25022, #7fba00);
+    }
+
+    .certificate__image-container {
       position: relative;
       width: 100%;
-      height: 180px;
+      height: 120px;
+      margin-bottom: 16px;
       overflow: hidden;
-      background: linear-gradient(135deg, rgba(0, 245, 212, 0.1), rgba(14, 165, 233, 0.1));
+      border-radius: 12px;
+      background: #e8e8ea;
     }
 
-    .cert-image {
+    .certificate__image {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform var(--transition);
     }
 
-    .cert-card:hover .cert-image {
+    .certificate__item:hover .certificate__image {
       transform: scale(1.05);
     }
 
-    .cert-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 0.8rem;
-      color: var(--accent-cyan);
+    .certificate__date {
+      display: inline-block;
+      font-size: 1.1rem;
       font-weight: 600;
+      color: #0ea5e9;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
     }
 
-    .cert-content {
-      padding: 24px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .cert-logos {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-      align-items: center;
-    }
-
-    .cert-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      background: rgba(0, 245, 212, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      border: 1px solid rgba(0, 245, 212, 0.3);
-    }
-
-    .cert-title {
-      font-size: 1.2rem;
+    .certificate__title {
+      font-size: 1.15rem;
       font-weight: 600;
       margin-bottom: 8px;
-      color: var(--text-primary);
+      color: #1a1a1a;
       line-height: 1.4;
     }
 
-    .cert-issuer {
-      font-size: 0.95rem;
-      color: var(--accent-blue);
-      font-weight: 500;
+    .certificate__issuer {
+      display: block;
+      font-size: 0.9rem;
+      color: #666666;
       margin-bottom: 12px;
+      font-weight: 500;
     }
 
-    .cert-meta {
+    .certificate__meta {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
+      justify-content: center;
       margin-top: auto;
       padding-top: 12px;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid #e0e0e0;
     }
 
-    .meta-tag {
-      background: rgba(0, 245, 212, 0.08);
-      border: 1px solid rgba(0, 245, 212, 0.2);
-      border-radius: 6px;
-      padding: 5px 10px;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 4px;
+    .certificate__meta-item {
+      font-size: 0.75rem;
+      color: #999999;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
     }
 
     /* ──────────────────── MODAL ─────────────────────── */
@@ -635,12 +644,25 @@
     </div>
   </div>
 
+  <!--==================================
+        CERTIFICATES Google AI Courses
+  ===================================-->
+  <div class="certificate__item" data-cert-id="google-ai-essentials">
+    <h4 class="certificate__title" data-vi="Google AI" data-original="Google AI">Google AI Essentials</h4>
+    <span class="certificate__date"> Coursera 2025</span>
+    <img src="./IMG/Google AI Essentials/Google AI Essentials.jpg" alt="Google AI" loading="lazy">
+  </div>
 
-  <div class="certificate__item" style="cursor: url(&quot;./assets/img/mouse/mouse-f2.png&quot;), auto;">
-    <h4 class="certificate__title" data-vi="Google AI" data-original="Google AI">Google AI</h4>
-    <span class="certificate__issuer">Google</span>
-    <span class="certificate__date">2026</span>
-    <img src="./assets/img/certificate/Google_AI.webp" alt="Google AI" loading="lazy">
+  <div class="certificate__item" data-cert-id="google-ai-essentials">
+    <h4 class="certificate__title" data-vi="Google AI" data-original="Google AI">Discover the Art of Prompting</h4>
+    <span class="certificate__date"> Coursera 2025</span>
+    <img src="./IMG/Google AI Essentials/Discover the Art of Prompting.jpg" alt="Google AI" loading="lazy">
+  </div>
+
+  <div class="certificate__item" data-cert-id="google-ai-essentials">
+    <h4 class="certificate__title" data-vi="Google AI" data-original="Google AI">Introduction to Machine Learning</h4>
+    <span class="certificate__date"> Coursera 2025</span>
+    <img src="./IMG/Google AI Essentials/Introduction to Machine Learning.jpg" alt="Google AI" loading="lazy">
   </div>
 
   <script>
@@ -737,40 +759,30 @@
       }
 
       emptyState.style.display = 'none';
+      const year = new Date().getFullYear().toString();
+      
       grid.innerHTML = filtered.map(cert => {
         const firstImage = cert.images?.[0]?.data || '';
         const logo = getOrganizerLogo(cert.issuer);
-        const courseCount = cert.images?.length || 0;
+        const certYear = cert.date ? cert.date.split('-')[0] : year;
+        const logoClass = getOrganizerCategory(cert.issuer);
 
         return `
-          <div class="cert-card" data-cert-id="${cert.id}">
-            <div class="cert-image-container">
-              ${firstImage ? `<img class="cert-image" src="${firstImage}" alt="${cert.title}">` : ''}
-              <div class="cert-badge">${cert.images?.length || 0} ảnh</div>
+          <div class="certificate__item" data-cert-id="${cert.id}">
+            <div class="certificate__logos">
+              <div class="certificate__logo ${logoClass}">${logo}</div>
             </div>
-            <div class="cert-content">
-              <div class="cert-logos">
-                <div class="cert-logo">${logo}</div>
-              </div>
-              <h3 class="cert-title">${cert.title}</h3>
-              <p class="cert-issuer">${cert.issuer || 'Không rõ tổ chức'}</p>
-              <div class="cert-meta">
-                <span class="meta-tag">
-                  <i class="far fa-calendar"></i>
-                  ${formatDate(cert.date)}
-                </span>
-                <span class="meta-tag">
-                  <i class="far fa-images"></i>
-                  ${courseCount} ảnh
-                </span>
-              </div>
-            </div>
+            ${firstImage ? `<div class="certificate__image-container"><img class="certificate__image" src="${firstImage}" alt="${cert.title}" loading="lazy"></div>` : ''}
+            <span class="certificate__date">${certYear}</span>
+            <h4 class="certificate__title">${cert.title}</h4>
+            <span class="certificate__issuer">${cert.issuer || 'Không rõ tổ chức'}</span>
+            ${cert.images?.length ? `<div class="certificate__meta"><span class="certificate__meta-item">${cert.images.length} ảnh</span></div>` : ''}
           </div>
         `;
       }).join('');
 
       // Attach click handlers
-      document.querySelectorAll('.cert-card').forEach(card => {
+      document.querySelectorAll('.certificate__item').forEach(card => {
         card.addEventListener('click', () => {
           const certId = card.dataset.certId;
           const cert = allCertificates.find(c => c.id === certId);
